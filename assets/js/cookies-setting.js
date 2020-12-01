@@ -25,9 +25,7 @@ COOKIES_ENABLER.init({
 
     iframesPlaceholder: false,
     iframesPlaceholderHTML:
-        '<p>To view this content you need to'
-        + '<a href="#" class="ce-accept">Enable Cookies</a>'
-        + '</p>',
+        `<p>To view this content you need to <a href="#" class="ce-accept">Enable Cookies</a></p>`,
     iframesPlaceholderClass: 'ce-iframe-placeholder',
 
     // Callbacks
