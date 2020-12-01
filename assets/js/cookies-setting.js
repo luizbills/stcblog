@@ -31,13 +31,13 @@ COOKIES_ENABLER.init({
     iframesPlaceholderClass: 'ce-iframe-placeholder',
 
     // Callbacks
-    onEnable: function () {
+    onEnable: () => {
         console.log('cookies have been enabled');
     },
-    onDismiss: function () {
+    onDismiss: () => {
         console.log('the banner has been dismissed');
     },
-    onDisable: function () {
+    onDisable: () => {
         console.log('cookies have been disabled');
     }
 });
