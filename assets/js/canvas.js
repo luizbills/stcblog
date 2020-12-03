@@ -5,10 +5,11 @@
  */
 
  
-let resizeReset = function() {
+const resizeReset = () => {
 	w = canvasBody.width = window.innerWidth;
 	h = canvasBody.height = window.innerHeight;
-}
+};
+
 const opts = { 
 	particleColor: "rgb(250,250,250)",
 	lineColor: "rgb(234,234,234)",
@@ -19,23 +20,23 @@ const opts = {
 	variantRadius: 4,
 	linkRadius: 100,
 };
-window.addEventListener("resize", function(){
-	deBouncer();
-});
-let deBouncer = function() {
-    clearTimeout(tid);
-    tid = setTimeout(function() {
-        resizeReset();
-    }, delay);
+
+window.addEventListener("resize", () => {
+		deBouncer();
+	});
+let deBouncer = () => {
+	clearTimeout(tid);
+	tid = setTimeout(() => {
+			resizeReset();
+		}, delay);
 };
-let checkDistance = function(x1, y1, x2, y2){ 
-	return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-};
-let linkPoints = function(point1, hubs){ 
+
+let checkDistance = (x1, y1, x2, y2) => Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+let linkPoints = (point1, hubs) => {
 	for (let i = 0; i < hubs.length; i++) {
 		let distance = checkDistance(point1.x, point1.y, hubs[i].x, hubs[i].y);
 		let opacity = 1 - distance / opts.linkRadius;
-		if (opacity > 0) { 
+		if (opacity > 0) {
 			drawArea.lineWidth = 0.5;
 			drawArea.strokeStyle = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${opacity})`;
 			drawArea.beginPath();
@@ -45,7 +46,8 @@ let linkPoints = function(point1, hubs){
 			drawArea.stroke();
 		}
 	}
-}
+};
+
 Particle = function(){ 
 	this.x = Math.random() * w; 
 	this.y = Math.random() * h;
@@ -82,6 +84,7 @@ Particle = function(){
 		drawArea.fill();
 	};
 };
+
 function setup(){ 
 	particles = [];
 	resizeReset();
@@ -90,6 +93,7 @@ function setup(){
 	}
 	window.requestAnimationFrame(loop);
 }
+
 function loop(){ 
 	window.requestAnimationFrame(loop);
 	drawArea.clearRect(0,0,w,h);
@@ -97,10 +101,12 @@ function loop(){
 		particles[i].update();
 		particles[i].draw();
 	}
+
 	for (let i = 0; i < particles.length; i++){
 		linkPoints(particles[i], particles);
 	}
 }
+
 const canvasBody = document.getElementById("canvas"),
 drawArea = canvasBody.getContext("2d");
 let delay = 200, tid,
