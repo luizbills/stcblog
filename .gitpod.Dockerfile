@@ -20,8 +20,8 @@ USER root
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get -y install apache2 && \
     chown -R gitpod:gitpod /var/run/apache2 /var/lock/apache2 /var/log/apache2 && \
-    echo "include ${HOME}/gitpod-wordpress/conf/apache.conf" > /etc/apache2/apache2.conf && \
-    echo ". ${HOME}/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars && \
+    echo "include ${HOME}/stcblog/conf/apache.conf" > /etc/apache2/apache2.conf && \
+    echo ". ${HOME}/stcblog/conf/apache.env.sh" > /etc/apache2/envvars && \
     ### PHP ###
     add-apt-repository ppa:ondrej/php && \
     apt-get update && \
