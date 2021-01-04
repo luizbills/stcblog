@@ -18,19 +18,23 @@ RUN git clone https://github.com/luizbills/gitpod-wordpress $HOME/gitpod-wordpre
 ### MailHog ###
 USER root
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get -y install apache2 && \
+RUN go get github.com/mailhog/MailHog && \
+    go get github.com/mailhog/mhsendmail && \
+    cp $GOPATH/bin/MailHog /usr/local/bin/mailhog && \
+    cp $GOPATH/bin/mhsendmail /usr/local/bin/mhsendmail && \
+    ln $GOPATH/bin/mhsendmail /usr/sbin/sendmail && \
+    ln $GOPATH/bin/mhsendmail /usr/bin/mail &&\
+    ### Apache ###
+    apt-get -y install apache2 && \
     chown -R gitpod:gitpod /var/run/apache2 /var/lock/apache2 /var/log/apache2 && \
-    echo "include ${HOME}/stcblog/conf/apache.conf" > /etc/apache2/apache2.conf && \
-    echo ". ${HOME}/stcblog/conf/apache.env.sh" > /etc/apache2/envvars && \
+    echo "include ${HOME}/gitpod-wordpress/conf/apache.conf" > /etc/apache2/apache2.conf && \
+    echo ". ${HOME}/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars && \
     ### PHP ###
     add-apt-repository ppa:ondrej/php && \
     apt-get update && \
     apt-get -qy install \
-        libapache2-mod-php${PHP_VERSION} \
+        libapache2-mod-php \
         php${PHP_VERSION} \
-    dpkg --configure -a \
-    apt-get -f install \ 
-    apt-get -qy install \
         php${PHP_VERSION}-common \
         php${PHP_VERSION}-cli \
         php${PHP_VERSION}-mbstring \
@@ -46,7 +50,7 @@ RUN apt-get -y install apache2 && \
         php${PHP_VERSION}-opcache \
         php-xdebug && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* && \
-    cat /home/gitpod/stcblog/conf/php.ini >> /etc/php/${PHP_VERSION}/apache2/php.ini && \
+    cat /home/gitpod/gitpod-wordpress/conf/php.ini >> /etc/php/${PHP_VERSION}/apache2/php.ini && \
     ### Setup PHP in Apache ###
     a2dismod php* && \
     a2dismod mpm_* && \
