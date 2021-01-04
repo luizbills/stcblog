@@ -28,8 +28,8 @@ RUN apt-get -y install apache2 && \
     apt-get -qy install \
         libapache2-mod-php${PHP_VERSION} \
         php${PHP_VERSION} \
-    dpkg --configure -a \ # instruct dpkg to "fix" itself
-    apt-get -f install \ # correct dependencies and continue to configure your packages
+    dpkg --configure -a \
+    apt-get -f install \ 
     apt-get -qy install \
         php${PHP_VERSION}-common \
         php${PHP_VERSION}-cli \
