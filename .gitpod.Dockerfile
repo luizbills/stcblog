@@ -26,7 +26,7 @@ RUN apt-get -y install apache2 && \
     add-apt-repository ppa:ondrej/php && \
     apt-get update && \
     apt-get -qy install \
-        libapache2-mod-php \
+        libapache2-mod-php${PHP_VERSION} \
         php${PHP_VERSION} \
         php${PHP_VERSION}-common \
         php${PHP_VERSION}-cli \
