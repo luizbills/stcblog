@@ -27,7 +27,7 @@ RUN apt-get -y install apache2 && \
     apt-get update && \
     apt-get -qy install \
         libapache2-mod-php${PHP_VERSION} \
-        php${PHP_VERSION} 
+        php${PHP_VERSION} \
     dpkg --configure -a # instruct dpkg to "fix" itself
     apt-get -f install # correct dependencies and continue to configure your packages
     apt-get -qy install \
